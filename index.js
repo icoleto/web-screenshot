@@ -17,6 +17,10 @@ app.get("/web", async (req, res) => {
         res.end(img); 
 });
 
+app.get("/", function (req, res) {
+  res.sendFile("public/index.html");
+}); 
+
 app.listen(port, () => {
   console.log(`Example app listening at port ${port}`);
 });
