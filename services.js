@@ -24,7 +24,6 @@ exports.analize = async (url) => {
     await autoScroll(page);
     await page.setViewport({ width: 1920, height: 1080 });
 
-    await page.waitFor(1000);
     const screenshot = await page.screenshot({
       // path: "image.png",
       fullPage: true,
@@ -41,7 +40,7 @@ async function autoScroll(page) {
   await page.evaluate(async () => {
     await new Promise((resolve, reject) => {
       var totalHeight = 0;
-      var distance = 100;
+      var distance = 200;
       var timer = setInterval(() => {
         var scrollHeight = document.body.scrollHeight;
         window.scrollBy(0, distance);
@@ -51,7 +50,7 @@ async function autoScroll(page) {
           clearInterval(timer);
           resolve();
         }
-      }, 100);
+      }, 50);
     });
   });
 }
