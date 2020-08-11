@@ -4,7 +4,7 @@ exports.analize = async (url) => {
   try {
     browser = await puppeteer.launch({
       args: ["--no-sandbox"],
-      headless: false,
+      // headless: false,
     });
     const page = await browser.newPage();
 
