@@ -20,7 +20,7 @@ exports.analize = async (url) => {
 
     await page.waitFor(1000);
     const screenshot = await page.screenshot({
-      path: "image.png",
+      // path: "image.png",
       fullPage: true,
     });
     return screenshot;
