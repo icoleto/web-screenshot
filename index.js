@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3001;
 const services = require('./services')
+
+app.use(express.static("public"));
+
 app.get("/web", async (req, res) => {
     console.log(req.query["url"]);
     const data = await services.analize(req.query["url"]);

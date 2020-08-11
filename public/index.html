@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  </head>
+  <body class="text-center bg-light">
+    <h1 class="display-4 font-weight-normal">Web screenshot utility</h1>
+    <div class="mx-auto w-50 p-3 bg-grey text-white text-center">
+        <div class="input-group">
+            <input class="form-control" type="text" placeholder="Introduce your url" onfocus="inputOnFocus()"></input>
+        </div>
+    </br>
+        <button class="btn btn-lg btn-primary btn-block" onclick="download()">Generate download link</button>
+    </div>
+        <a href="" download></a>
+  
+
+  </body>
+
+
+    <script>
+        function download() {
+            const url = document.querySelector('input').value
+            document.querySelector('a').href = `${window.origin}/web?url=${url}`
+            document.querySelector('a').innerHTML = 'Click to download screenshot'
+        }
+        function inputOnFocus(e) {
+            document.querySelector('input').value = null
+            document.querySelector('a').innerHTML = null
+
+        }
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  
+</html>
