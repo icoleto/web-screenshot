@@ -1,10 +1,10 @@
 // puppeteer-extra is a drop-in replacement for puppeteer,
 // it augments the installed puppeteer with plugin functionality
-const puppeteer = require('puppeteer-extra')
- 
+const puppeteer = require("puppeteer-extra");
+
 // add stealth plugin and use defaults (all evasion techniques)
-const StealthPlugin = require('puppeteer-extra-plugin-stealth')
-puppeteer.use(StealthPlugin())
+const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+puppeteer.use(StealthPlugin());
 
 exports.analize = async (url) => {
   try {
@@ -15,6 +15,10 @@ exports.analize = async (url) => {
     const page = await browser.newPage();
 
     await page.goto(url, { waitUntil: "networkidle0" });
+    const hostname = await page.evaluate(() => {
+      return window.location.hostname;
+    });
+
     await page.evaluate(() => {
       let but = document.querySelector(".more-photos");
       if (but) {
@@ -28,7 +32,7 @@ exports.analize = async (url) => {
       // path: "image.png",
       fullPage: true,
     });
-    return screenshot;
+    return { screenshot, hostname };
   } catch (error) {
     console.log(error);
   } finally {

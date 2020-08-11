@@ -7,12 +7,16 @@ app.use(express.static("public"));
 
 app.get("/web", async (req, res) => {
     console.log(req.query["url"]);
-    const data = await services.analize(req.query["url"]);
-        var img = Buffer.from(data, "base64");
+    const {screenshot, hostname} = await services.analize(req.query["url"]);
+        var img = Buffer.from(screenshot, "base64");
 
         res.writeHead(200, {
           "Content-Type": "image/png",
           "Content-Length": img.length,
+          "Content-Disposition": `attachment; filename=${hostname}-${new Date()
+            .toISOString()
+            .slice(0, 19)
+            .replace(/[:T]/g, "-")}.png`,
         });
         res.end(img); 
 });
@@ -24,3 +28,4 @@ app.get("/", function (req, res) {
 app.listen(port, () => {
   console.log(`Example app listening at port ${port}`);
 });
+new Date().get
