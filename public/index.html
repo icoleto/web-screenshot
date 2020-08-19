@@ -7,34 +7,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="main.css">
-     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js" integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
+    <!-- vue-loading-overlay -->
+    <script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3"></script>
+    <link href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3/dist/vue-loading.css" rel="stylesheet">
   </head>
   <body class="text-center bg-light">
       <div id="app">
     <h1 class="display-4 font-weight-normal">Web screenshot utility</h1>
     <div class="mx-auto w-50 p-3 bg-grey text-white text-center">
         <div class="input-group">
-            <input class="form-control" type="text" placeholder="Introduce your url" onfocus="inputOnFocus()" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';"></input>
+            <input class="form-control" type="text" placeholder="Introduce your url" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';"></input>
         </div>
     </br>
-        <button class="btn btn-lg btn-primary btn-block" @click="onClick()">DownLoad</button>
+        <button class="btn btn-lg btn-primary btn-block" @click="downloadFile()">DownLoad</button>
     </div>
         <a href="" download></a>
         </div>
   </body>
 
     <script type="text/javascript">
-
+    const loaderConfig = { loader: 'bars', color: '#299AE0', height: 200, width: 200}
+        Vue.use(VueLoading);
         var app = new Vue({
             el: '#app',
             methods: {
-                onClick() {
+                downloadFile() {
+                     let loader = this.$loading.show(loaderConfig);
                     axios({
                         url: `${window.origin}/web?url=${document.querySelector('input').value}`,
                         method: 'GET',
                         responseType: 'blob',
                     }).then((response) => {
+                        loader.hide()
                         const contentDisposition = response.headers['content-disposition'];
                         let fileName = 'unknown';
                         if (contentDisposition) {
