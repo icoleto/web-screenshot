@@ -13,10 +13,10 @@ app.get("/web", async (req, res) => {
         res.writeHead(200, {
           "Content-Type": "image/png",
           "Content-Length": img.length,
-          "Content-Disposition": `attachment; filename=${hostname}-${new Date()
+          "Content-Disposition": `attachment; filename="${hostname}-${new Date()
             .toISOString()
             .slice(0, 19)
-            .replace(/[:T]/g, "-")}.png`,
+            .replace(/[:T]/g, "-")}.png"`,
         });
         res.end(img); 
 });
