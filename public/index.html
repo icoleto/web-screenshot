@@ -25,7 +25,7 @@
     <h1 class="display-4 font-weight-normal">Web screenshot utility</h1>
     <div class="mx-auto w-50 p-3 bg-grey text-white text-center">
         <div class="input-group">
-            <input class="form-control" type="text" placeholder="Introduce your url" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';"></input>
+            <textarea id='url-text' class="form-control" type="text" placeholder="Introduce text including at least one URL" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';"></textarea>
         </div>
     </br>
         <button class="btn btn-lg btn-primary btn-block" @click="downloadFile()">DownLoad</button>
@@ -36,14 +36,19 @@
 
     <script type="text/javascript">
         const loaderConfig = { loader: 'bars', color: '#299AE0', height: 200, width: 200}
+        const urlRegex = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/g
+
+
         Vue.use(VueLoading);
         var app = new Vue({
             el: '#app',
             methods: {
                 downloadFile() {
                      let loader = this.$loading.show(loaderConfig);
+                     const params = {url: document.querySelector('#url-text').value.match(urlRegex)[0]}
                     axios({
-                        url: `${window.origin}/web?url=${document.querySelector('input').value}`,
+                        url: `${window.origin}/web`,
+                        params,
                         method: 'GET',
                         responseType: 'blob',
                     }).then((response) => {
