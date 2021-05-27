@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3001;
 const services = require('./services')
+import * as child_process from 'child_process';
+const LAST_COMMIT = child_process.execSync('git rev-parse --short HEAD')
 
 app.use(express.static("public"));
 
@@ -23,6 +25,10 @@ app.get("/web", async (req, res) => {
 
 app.get("/", function (req, res) {
   res.sendFile("public/index.html");
+}); 
+
+app.get("/version", function (req, res) {
+  res.send(LAST_COMMIT);
 }); 
 
 app.listen(port, () => {
