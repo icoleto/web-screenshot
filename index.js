@@ -3,13 +3,10 @@ const app = express();
 const port = process.env.PORT || 3001;
 const services = require("./services");
 const VERSION = require("./package.json").version;
-
+const LAST_COMMIT = null;
 if (process.env.NODE_ENV !== "production") {
   const child_process = require("child_process");
-  const LAST_COMMIT = child_process
-    .execSync("git rev-parse HEAD")
-    .toString()
-    .trim();
+  LAST_COMMIT = child_process.execSync("git rev-parse HEAD").toString().trim();
 } else {
   LAST_COMMIT = process.env.HEROKU_SLUG_COMMIT;
 }
