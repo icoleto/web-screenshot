@@ -3,7 +3,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 const services = require("./services");
 const VERSION = require("./package.json").version;
-const LAST_COMMIT = null;
+let LAST_COMMIT = null;
 if (process.env.NODE_ENV !== "production") {
   const child_process = require("child_process");
   LAST_COMMIT = child_process.execSync("git rev-parse HEAD").toString().trim();
