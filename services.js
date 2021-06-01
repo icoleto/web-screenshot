@@ -9,7 +9,7 @@ puppeteer.use(StealthPlugin());
 exports.analize = async (url) => {
   try {
     browser = await puppeteer.launch({
-      args: ["--no-sandbox"],
+      args: getPupppeterArgs(),
       // headless: false,
     });
     const page = await browser.newPage();
@@ -44,7 +44,7 @@ async function autoScroll(page) {
   await page.evaluate(async () => {
     await new Promise((resolve, reject) => {
       var totalHeight = 0;
-      var distance = 500;
+      var distance = 250;
       var timer = setInterval(() => {
         var scrollHeight = document.body.scrollHeight;
         window.scrollBy(0, distance);
@@ -54,7 +54,16 @@ async function autoScroll(page) {
           clearInterval(timer);
           resolve();
         }
-      }, 5);
+      }, 50);
     });
   });
+}
+
+function getPupppeterArgs() {
+  const args = [];
+  args.push("--no-sandbox");
+  if (process.env.PROXY_PAGE) {
+    args.push(`--proxy-server=${process.env.PROXY_PAGE}`);
+  }
+  return args;
 }
