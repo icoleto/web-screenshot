@@ -78,19 +78,17 @@
                             fileName = fileNameMatch[1];
                     }
 
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        window.location.href = reader.result;
+                    let blob = response.data
+                    let reader = new FileReader()
+                    reader.readAsDataURL(blob)
+                    reader.onload = (e) => {
+                        let a = document.createElement('a')
+                        a.download = fileName
+                        a.href = e.target.result
+                        document.body.appendChild(a)
+                        a.click()
+                        document.body.removeChild(a)
                     }
-                    const out = new Blob([response.data]);
-                    reader.readAsDataURL(out);
-
-                    var fileLink = document.createElement('a');
-                    fileLink.href = reader.result;
-                    fileLink.setAttribute('download', fileName);
-                    document.body.appendChild(fileLink);
-
-                    fileLink.click();
                 }).catch((error) => {
                     loader.hide()
                     alert("Ops there was an error")
