@@ -77,9 +77,16 @@
                         if (fileNameMatch.length === 2)
                             fileName = fileNameMatch[1];
                     }
-                    var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        window.location.href = reader.result;
+                    }
+                    const out = new Blob([response.data]);
+                    reader.readAsDataURL(out);
+
                     var fileLink = document.createElement('a');
-                    fileLink.href = fileURL;
+                    fileLink.href = reader.result;
                     fileLink.setAttribute('download', fileName);
                     document.body.appendChild(fileLink);
 
