@@ -19,13 +19,21 @@ exports.analize = async (url) => {
       return window.location.hostname;
     });
 
+    await delay(1234);
+
     await page.evaluate(() => {
       let but = document.querySelector(".more-photos");
       if (but) {
         return Promise.resolve(but.click());
       }
     });
+
+    await delay(2134);
+
     await autoScroll(page);
+
+    await delay(2431);
+
     await page.setViewport({ width: 1920, height: 1080 });
 
     const screenshot = await page.screenshot({
@@ -54,7 +62,7 @@ async function autoScroll(page) {
           clearInterval(timer);
           resolve();
         }
-      }, 50);
+      }, 100);
     });
   });
 }
@@ -66,4 +74,11 @@ function getPupppeterArgs() {
     args.push(`--proxy-server=${process.env.PROXY_PAGE}`);
   }
   return args;
+}
+
+
+function delay(time) {
+  return new Promise(function(resolve) { 
+      setTimeout(resolve, time)
+  });
 }

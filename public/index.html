@@ -34,7 +34,7 @@
                     onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';"></textarea>
             </div>
             </br>
-            <button id=1 class="btn btn-lg btn-primary btn-block" @click="downloadFile()">DownLoad</button>
+            <button id=1 class="btn btn-lg btn-primary btn-block" @click="downloadFile()">Download</button>
         </div>
         <a href="" download></a>
 
@@ -52,7 +52,7 @@
     const loaderConfig = { loader: 'bars', color: '#299AE0', height: 200, width: 200 }
     const urlRegex = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/g
 
-    
+
     Vue.use(VueLoading);
     var app = new Vue({
         el: '#app',
