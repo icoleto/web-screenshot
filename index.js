@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== "production") {
   const child_process = require("child_process");
   LAST_COMMIT = child_process.execSync("git rev-parse HEAD").toString().trim();
 } else {
-  LAST_COMMIT = process.env.HEROKU_SLUG_COMMIT;
+  LAST_COMMIT = child_process.execSync("git rev-parse HEAD").toString().trim();
 }
 
 app.use(express.static("public"));
