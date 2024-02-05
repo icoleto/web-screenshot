@@ -14,12 +14,21 @@ exports.analize = async (url) => {
     });
     const page = await browser.newPage();
 
+    // Set a random user agent
+    const userAgents = [
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Firefox/89.0.2',
+      // Add more user agents as needed
+    ];
+    const randomUserAgent = userAgents[Math.floor(Math.random() * userAgents.length)];
+    await page.setUserAgent(randomUserAgent);
+
     await page.goto(url, { waitUntil: "networkidle0" });
     const hostname = await page.evaluate(() => {
       return window.location.hostname;
     });
 
-    await delay(1234);
+    await page.waitForTimeout(1000);
 
     await page.evaluate(() => {
       let but = document.querySelector(".more-photos");
@@ -28,11 +37,11 @@ exports.analize = async (url) => {
       }
     });
 
-    await delay(2134);
+    await page.waitForTimeout(1000);
 
     await autoScroll(page);
 
-    await delay(2431);
+    await page.waitForTimeout(1000);
 
     await page.setViewport({ width: 1920, height: 1080 });
 
