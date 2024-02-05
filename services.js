@@ -28,8 +28,6 @@ exports.analize = async (url) => {
       return window.location.hostname;
     });
 
-    await page.waitForTimeout(1000);
-
     await page.evaluate(() => {
       let but = document.querySelector(".more-photos");
       if (but) {
@@ -37,11 +35,7 @@ exports.analize = async (url) => {
       }
     });
 
-    await page.waitForTimeout(1000);
-
     await autoScroll(page);
-
-    await page.waitForTimeout(1000);
 
     await page.setViewport({ width: 1920, height: 1080 });
 
